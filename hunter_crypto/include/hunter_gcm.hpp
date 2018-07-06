@@ -8,7 +8,6 @@
 #include <fstream>
 #include <iostream>
 
-//g++ main.cpp -lcrypto -D_GLIBCXX_USE_CXX11_ABI=0 -pg
 using std::string;
 
 int EncodeSymmetry(const unsigned char * buf_in, const int in_len, const string & sKey, const string & sIV, char * buf_out, int & out_len, string & sMAC);

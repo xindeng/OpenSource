@@ -1,5 +1,4 @@
 #include "hunter_crypto.hpp"
-using std::string;
 
 
 string Crypto::Encode(char * sIn,const int in_len, char* sKey, char* sIV){
@@ -16,7 +15,8 @@ string Crypto::Encode(char * sIn,const int in_len, char* sKey, char* sIV){
     memcpy(sResult, sMAC.data(), 16);
     memcpy(sResult + 16, sOut, out_len);
 
-    string sRes((const char *)sResult, iResLen);
+    //返回信息=16位消息验证码+加密内容
+    string sRes((const char *)sResult, iResLen);    
     delete [] sOut;
     delete []sResult;
     return sRes;
@@ -39,9 +39,7 @@ string Crypto:: Decode(char * sIn, const int in_len, char* sKey, char* sIV, char
 BOOST_PYTHON_MODULE(hunter_crypto)
 {
     using namespace boost::python;
-    class_<Crypto>("Crypto", init<>())  /* by this line
-                 your are giving access to python side 
-             to call the constructor of c++ structure World */
+    class_<Crypto>("Crypto", init<>())  //导出C++构造函数
                 .def("Encode",&Crypto::Encode)
                 .def("Decode",&Crypto::Decode)
             ;
